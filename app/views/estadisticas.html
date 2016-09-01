@@ -1,0 +1,70 @@
+<div class="panel panel-default" ng-controller="EstadisticaCtrl">
+    <div class="panel-heading">Estadisticas</div>
+    <div class="panel-body">
+        <form class="form-inline">
+            <div class="form-group">
+                <p class="input-group">
+                    <input type="text" class="form-control" ng-change="searchVentas()" datepicker-popup="{{format}}" ng-model="b.fecha_start" is-open="opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions"  ng-required="true" close-text="Close" />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-focus="opened = true" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </p>
+                <p class="input-group">
+                    <input type="text" class="form-control" ng-change="searchVentas()" datepicker-popup="{{format}}" ng-model="b.fecha_end" is-open="opened2" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions"  ng-required="true" close-text="Close" />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-focus="opened2 = true"  ng-click="open2($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </p>
+                <button type="button" class="btn btn-default btn-sm " ng-click="reset()">Reset</button>
+
+            </div>
+        </form>
+        <div class="row">
+            <div class="col-md-4">
+                <h4>Dias calcuados: {{dias_cal}}</h4>
+                <h4>Ventas Totales: {{ventas_totales| currency:undefined:0}}</h4>
+                <h4>Gastos totales: {{gastos_totales| currency:undefined:0}}</h4>
+                <h4>Efectivo restante: {{efectivo_restante| currency:undefined:0}}</h4>
+                <h4>Venta promedio: {{venta_promedio| currency:undefined:0}}</h4>
+                <h4>Gasto Promedio: {{gasto_promedio| currency:undefined:0}}</h4>
+                <h4>Utilidad Bruta: {{por_utilidad| number:2}} %</h4>
+            </div>
+            <div class="col-md-8">
+                <canvas id="line" class="chart chart-line" chart-data="data"
+                        chart-labels="labels" chart-legend="true" chart-series="series"
+                        chart-click="onClick" >
+                </canvas> 
+            </div>
+        </div>
+         <div class="row">
+            <div class="col-md-4">
+                <h4>Total gastos: {{total_g|currency}}</h4>
+              <div class="table-responsive">
+            <table  class="table table-bordered" >
+                 <thead>
+                     <tr>
+                         <th>Nombre</th>
+                         <th>Valor</th>
+                         <th>%</th>
+                     </tr>
+                 </thead>
+                 <tbody>
+                <tr ng-repeat="p in t_gastos">
+                    <td>{{p.nombre}}</td>
+                    <td>{{p.valor|currency}}</td>
+                     <td>{{p.por | number:2}}</td>
+                </tr>
+                <!--/tbody-->
+            </table>
+        </div>
+            </div>
+            <div class="col-md-8">
+                <canvas id="line" class="chart chart-line" chart-data="data"
+                        chart-labels="labels" chart-legend="true" chart-series="series"
+                        chart-click="onClick" >
+                </canvas> 
+            </div>
+        </div>
+
+    </div>
+</div>

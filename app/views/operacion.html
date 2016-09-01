@@ -1,0 +1,95 @@
+<div class="panel panel-default">
+    <div class="panel-heading">Operaciones Caja Mayor</div>
+    <div class="panel-body">
+        <form class="form-inline " ng-if="!ban_editar">
+            <div class="form-group">
+                <input class="form-control col-sm-2" type="text" ng-model="ope.operacion" 
+                       size="30" placeholder="Operacion">
+                <input class="form-control col-md-5" type="number" ng-model="ope.ingreso" size="30" placeholder="Ingreso">
+                <input class="form-control col-md-5" type="number" ng-model="ope.egreso" size="30" placeholder="Egreso">
+            </div>
+            <button type="submit" class="btn btn-primary" ng-click="addOperacion(ope)">Agregar</button>
+              <span id="alert" class="{{alert.class}}" ng-show='alert.show'>{{alert.mensaje}}</span>
+        </form>
+        <div class="well" ng-if="ban_editar">
+            <h4>Editar Operacion: {{ope_edi.id}}</h4>
+            <form class="form-inline ">
+                <div class="form-group">
+                    <input class="form-control col-sm-2" type="text" ng-model="ope_edi.operacion" 
+                           size="30" placeholder="Operacion">
+                    <input class="form-control col-md-5" type="number" ng-model="ope_edi.ingreso" size="30" placeholder="Ingreso">
+                    <input class="form-control col-md-5" type="number" ng-model="ope_edi.egreso" size="30" placeholder="Egreso">
+                </div>
+                <button type="submit" class="btn btn-success" ng-click="updateOperacion(ope_edi)">Actualizar</button>
+                <button type="submit" class="btn btn-primary" ng-click="cancelarUpdate()">Cancelar</button>
+            </form>
+        </div>
+
+        <h3>Saldo actual: {{saldo | currency}}</h3>
+        <div class="table-responsive">
+            <table  class="table table-bordered" >
+                 <thead>
+                     <tr>
+                         <th>Id</th>
+                         <th>Fecha</th>
+                         <th>Operacion</th>
+                         <th>Ingreso</th>
+                         <th>Egreso</th>
+                     </tr>
+                      <tr>
+                         <th></th>
+                         <th></th>
+                         <th><input class="form-control col-sm-2" type="text" ng-model="searchText" ng-change="filterTable('operacion')"
+                       size="30" ></th>
+                         <th></th>
+                         <th></th>
+                     </tr>
+                 </thead>
+                 <tbody>
+                <tr ng-repeat="p in dataprovider.data">
+                    <td>{{p.id}}</td>
+                    <td>{{p.fecha | date:'EEE, MMM d, y'}}</td>
+                    <td>{{p.operacion}}</td>
+                    <td>{{p.ingreso|currency}}</td>
+                    <td>{{p.egreso|currency}}</td>
+                    <td class="td-delete"><button type="submit" class="glyphicon glyphicon-remove" data-toggle="modal" data-target="#eliminar-ope" ng-click="eliminarOperacion(p)"></button></td>
+                    <td class="td-delete"><button type="submit" class="glyphicon glyphicon-pencil" ng-click="editarOperacion(p)"></button></td>
+
+                </tr>
+                <!--/tbody-->
+            </table>
+        </div>
+       <nav>
+            <ul class="pager">
+                <li class="previous" ng-class="{'disabled' : page == 1}"><a href="" ng-click="previous()"><span aria-hidden="true">&larr;</span> Atras</a></li>
+                <li class="next" ng-class="{'disabled' : page == dataprovider.pag_page_count}"><a href="" ng-click="next()">Siguiente <span aria-hidden="true">&rarr;</span></a></li>
+            </ul>
+        </nav>
+
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-sm" id="eliminar-ope" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Eliminar operacion {{del_ope.id}}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <p> <h4>¿Esta seguro que quiere eliminar esta operacion?</h4></p>
+                    <p>Todos los registros en otras areas como nomina o ventas no seran 
+                    modificadas, puede generar incoherencia de datos </p>
+                    <p>Operacion: {{del_ope.operacion}}</p>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="deleteOperacion(del_ope.id)">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>

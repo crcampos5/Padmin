@@ -1,0 +1,103 @@
+<div class="panel panel-default">
+    <div class="panel-heading">Ventas</div>
+    <div class="panel-body">
+        <div class="panel panel-default ">
+            <h3>Resumen del Dia: {{venta_dia.fecha| date : 'fullDate'}}</h3>
+            <div>
+                <p class="input-group">
+                    <input type="text" class="form-control" ng-change="actualizarVentas()" datepicker-popup="{{format}}" ng-model="dt" is-open="opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions"  ng-required="true" close-text="Close" />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </p>
+            </div> 
+            <dl class="dl-horizontal">
+                <dt>Total de Gastos:</dt>
+                <dd>{{venta_dia.total_gastos| currency:undefined:0}} </dd>
+                <dt>Gastos de personal:</dt>
+                <dd>{{venta_dia.gastos_personal| currency:undefined:0}} </dd>
+                <dt>Base:</dt>
+                <dd>
+                    <div ng-if="!ban_editar_base">
+                        {{venta_dia.base| currency:undefined:0}} 
+                        <button type="submit" class="btn btn-default btn-xs glyphicon glyphicon-pencil" ng-disabled="isDisabled" ng-click="editarBase()"></button>
+
+                    </div>
+
+
+                    <form class="form-inline " ng-if="ban_editar_base">
+                        <div class="form-group">
+                            <input class="form-control col-sm-2" type="number" ng-model="venta_dia.base" 
+                                   size="30" placeholder="Base">                                    
+                        </div>
+                        <button type="submit" class="btn btn-success" ng-click="updateBase()">Actualizar</button>
+                        <button type="submit" class="btn btn-primary" ng-click="cancelarUpdateBase()">Cancelar</button>
+                    </form>
+
+                </dd>
+                <dt>Efectivo Recogido:</dt>
+                <dd>
+                    <div ng-if="!ban_efec_reco">
+                        {{venta_dia.efectivo_recogido| currency:undefined:0}} 
+                        <button type="submit" class="btn btn-default btn-xs glyphicon glyphicon-pencil" ng-disabled="isDisabled" ng-click="editarEfecReco()"></button>
+                    </div>
+                    <form class="form-inline " ng-if="ban_efec_reco">
+                        <div class="form-group">
+                            <input class="form-control col-sm-2" type="number" ng-model="venta_dia.efectivo_recogido" 
+                                   size="30" placeholder="Efectivo Recogido">                                    
+                        </div>
+                        <button type="submit" class="btn btn-success"  ng-click="updateEfecReco()">Actualizar</button>
+                        <button type="submit" class="btn btn-primary"  ng-click="cancelarUpdateEfec()">Cancelar</button>
+                    </form>
+                </dd>
+                <dt>Efectivo Restante:</dt>
+                <dd>{{venta_dia.efectivo_restante| currency:undefined:0}}</dd>
+                <dt>Ventas:</dt>
+                <dd>{{venta_dia.venta| currency:undefined:0}}</dd>
+            </dl>
+            <button type="submit" class="btn btn-success btn-venta" ng-click="createVenta()" ng-disabled="isDisabled">Cerrar dia</button>
+            <span id="alert" class="{{alert.class}}" ng-show='alert.show'>{{alert.mensaje}}</span>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-bordered" >
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Fecha</th>
+                        <th>Total Gastos</th>
+                        <th>Base</th>
+                        <th>Efectivo Recogido</th>
+                        <th>Efectivo Restante</th>
+                        <th>Ventas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="v in dataprovider.data">
+                        <td>{{v.id}}</td>
+                        <td>{{v.fecha| date : 'EEEE, MMM d, y'}}</td>
+                        <td>{{v.total_gastos}}</td>
+                        <td>{{v.base}}</td>
+                        <td>{{v.efectivo_recogido}}</td>
+                        <td>{{v.efectivo_restante}}</td>
+                        <td>{{v.venta}}</td>
+                        <td class="td-delete"><button type="submit" class="glyphicon glyphicon-remove" ng-click="deleteVenta(v)"></button></td>
+                        <td class="td-delete"><button type="submit" class="glyphicon glyphicon-pencil" ng-click="editarVenta(v)"></button></td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <nav>
+            <ul class="pager">
+                <li class="previous" ng-class="{'disabled' : page == 1}"><a href="" ng-click="previous()"><span aria-hidden="true">&larr;</span> Atras</a></li>
+                <li class="next" ng-class="{'disabled' : page == dataprovider.pag_page_count}"><a href="" ng-click="next()">Siguiente <span aria-hidden="true">&rarr;</span></a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+
+
+

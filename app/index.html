@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html ng-app="padminApp" lang="es-co" >
+    <head>
+        <title>Padmin</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Latest compiled and minified CSS --> 
+
+        <!--link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"-->
+        <link rel="stylesheet" href="js/libs/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+        <!--link rel="stylesheet" href="//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css"-->
+        <link rel="stylesheet" href="js/libs/jquery-ui1.11.3.css">
+        <link rel="stylesheet" href="css/app.css">
+        <link rel="stylesheet" href="css/angular-chart.css">
+        <link rel="stylesheet" href="css/simple-sidebar.css">
+
+        <!-- Optional theme -->
+        <!--link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"-->
+        <link rel="stylesheet" href="js/libs/bootstrap-theme3.2.0.min.css">
+        <!--link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.css"-->
+        <link rel="stylesheet" type="text/css" href="js/libs/font.css">
+
+
+    </head>
+    <body  onunload="" ng-controller="MainCtrl" ng-class="{'bodi' : loggedIn() != true}">
+        <div role="navigation" class="navbar border-bottom">
+
+
+
+            <div ng-include="'views/templates/drop_user.html'" class='div-drop'></div>
+
+        </div> 
+
+        <div id="wrapper">
+
+
+            <div ng-include="'views/templates/nav_bar.html'"></div>
+
+            <div id="page-wrapper page-content-wrapper" class="content-wrapper" ng-class="{'wraper-logout' : loggedIn() != true}">
+
+
+                <div class="container cont-center">
+                    <div ng-include="'views/templates/alert.html'"></div>
+                    <div ng-view=""></div> 
+                </div>
+
+            </div>
+
+
+        </div>        
+        <script src="js/libs/jquery-1.11.0.min.js"></script>
+        <!--script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script-->
+        <script src="js/libs/jquery-ui.min.js"></script>
+        <script src="js/libs/bootstrap.min.js"></script>
+        <script src="js/libs/angular.min.js"></script>
+        <script src="js/libs/Chart.min.js"></script>
+        <script src="js/libs/ui-bootstrap-tpls.min.js"></script>
+        <!--script src="http://cdnjs.cloudflare.com/ajax/libs/ng-table/0.3.3/ng-table.min.js"></script-->
+        <!--Componentes-->
+        <script src="js/libs/angular-route.js"></script>
+        <script src="js/components/angular-chart.js"></script>
+        <!--script src="js/components/angular-datatables.js"></script-->
+        <!--script src="js/components/mobile-ui/js/mobile-angular-ui.min.js"></script-->
+        <!--script src="js/components/mobile-ui/js/mobile-angular-ui.gestures.min.js"></script-->
+
+        <!--scripts app-->
+        <script src="js/app.js"></script>
+        <script src="js/controllers/operacion.js"></script>
+        <script src="js/controllers/compra.js"></script>
+        <script src="js/controllers/produccion.js"></script>
+        <script src="js/controllers/ventas.js"></script>
+        <script src="js/controllers/proveedor.js"></script>
+        <script src="js/controllers/empleado.js"></script>
+        <script src="js/controllers/nomina.js"></script>
+        <script src="js/controllers/main.js"></script>
+        <script src="js/controllers/login.js"></script>
+        <script src="js/controllers/user.js"></script>
+        <script src="js/controllers/estadistica.js"></script>
+
+        <script src="js/models/proveedorModel.js"></script>
+        <script src="js/models/compraModel.js"></script>
+        <script src="js/models/ventaModel.js"></script>
+        <script src="js/models/valeModel.js"></script>
+        <script src="js/models/operacionModel.js"></script>
+        <script src="js/models/empleadoModel.js"></script>
+        <script src="js/models/nominaModel.js"></script>
+
+        <script src="js/libs/funciones.js"></script>
+        <script src="js/libs/jquery.PrintArea.js"></script>
+
+        <script src="js/factorias/authInterceptor.js"></script>
+        <script src="js/factorias/authService.js"></script>
+        <script src="js/services/ajaxService.js"></script>
+        <script src="js/services/angular-locale_es-co.js"></script>
+        <script src="js/diretives/access.js"></script>
+    </body>
+</html>

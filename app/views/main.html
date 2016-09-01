@@ -1,0 +1,37 @@
+<div class="container main">
+    <div class='row'>
+        <div class='col-md-6'>
+            <h2>PADMIN</h2>
+            <h3>Bienvenido</h3>
+            <h3>Sistema de administracion de panaderias</h3>
+            <h4>By Cristian Campos</h4>
+        </div>
+        <div class='col-md-6' ng-controller="LoginCtrl">
+            <form ng-submit="login(userModel)" name="loginForm" id="login-form" method="post" role="form" >
+                <h2>Login</h2>
+                <div ng-class="{ 'has-success': !error['username'] && submitted,
+                'has-error': error['username'] && submitted }"
+                     class="form-group field-loginform-username required">
+                    <label class="control-label" for="loginform-username">Username</label>
+                    <input ng-model="userModel.username" type="text" id="loginform-username" class="form-control">
+                    <p class="help-block help-block-error">{{ error['username']}}</p>
+                </div>
+
+                <div ng-class="{ 'has-success': !error['password'] && submitted,
+                'has-error': error['password'] && submitted }"
+                     class="form-group field-loginform-password required">
+                    <label class="control-label" for="loginform-password">Password</label>
+                    <input ng-model="userModel.password" type="password" id="loginform-password" class="form-control">
+                    <p class="help-block help-block-error">{{ error['password']}}</p>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary" name="login-button">Login</button>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+
+</div>

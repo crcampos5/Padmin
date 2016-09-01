@@ -1,0 +1,49 @@
+
+<nav id="sidebar-wrapper" class="navbar-default" role="navigation" ng-show="loggedIn()" >
+
+    <ul id="side-menu" class="nav main-sidebar">
+
+        <li ng-show="access([30, 20])" >
+            <a href="#/operacion" ng-click="toggle()">
+                <span class="glyphi glyphicon glyphicons-156-show-big-thumbnails" aria-hidden="true"></span>
+                <span class="side-a"> Operaciones</span>
+            </a>
+        </li>
+        <li>
+            <a href="#/ventas" ng-click="toggle()">
+                <span class="glyphi glyphicon glyphicons-38-coins" aria-hidden="true"></span>
+                <span class="side-a"> Ventas</span></a>
+        </li>
+        <li>
+            <a href="#/compras" ng-click="toggle()">
+                <span class="glyphi glyphicon glyphicons-203-shopping-cart" aria-hidden="true"></span>
+                <span class="side-a"> Compras</span></a>
+        </li>
+        <li>
+            <a href="#/empleado" ng-click="toggle()">
+                <span class="glyphi glyphicon glyphicons-44-group" aria-hidden="true"></span>
+                <span class="side-a"> Empleados</span></a>
+        </li>
+        <li ng-show="access([30])">
+            <a href="#/estadisticas" ng-click="toggle()">
+                <span class="glyphi glyphicon glyphicons-43-pie-chart" aria-hidden="true"></span>
+                <span class="side-a"> Estadisticas</span></a>
+        </li>
+        <li>
+            <a href="#/proveedores" ng-click="toggle()">
+                <span class="glyphi glyphicon glyphicons-60-cargo" aria-hidden="true"></span>
+                <span class="side-a"> Proveedores</span></a>
+        </li>
+        <!--li>
+            <a href="#/produccion" ng-click="toggle()">
+                <span class="glyphi glyphicon glyphicons-451-factory" aria-hidden="true"></span>
+                <span class="side-a"> Produccion</span></a>
+        </li-->
+        <li ng-show="access([30])" ng-click="toggle()">
+            <a href="#/usuarios">
+                <span class="glyphi glyphicon glyphicons-44-group" aria-hidden="true"></span>
+                <span class="side-a"> Usuarios</span></a>
+        </li>
+    </ul>
+
+</nav>

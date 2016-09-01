@@ -1,0 +1,109 @@
+
+<button type="button" class="btn btn-default" data-toggle="offcanvas" ng-click="open_add()"> 
+    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> 
+    Agregar Empleado
+</button>
+<span id="successadd" class="{{success_add.class}}" ng-show='success_add.show'>{{success_add.mensaje}}</span>
+<div collapse="ban_add_em" class="panel panel-default panel-pading">
+    <div ng-include="'views/templates/form_empleado.html'"></div>
+</div>
+<div collapse="ban_edit_em" class="panel panel-default panel-pading">
+    <div ng-include="'views/templates/form_edi_empleado.html'"></div>
+</div>
+<div collapse="ban_ver_em" class="panel panel-default panel-pading">
+    <button type="button" class="btn btn-default btn-cerrar" ng-click="verEmpleado(null)">Cerrar</button>
+    <dl class="dl-horizontal">
+        <dt>Numero Identificacion:</dt>
+        <dd>{{empleado.num_identificacion}} </dd>
+        <dt>Nombre:</dt>
+        <dd>{{empleado.nombre}}</dd>
+        <dt>Apellido:</dt>
+        <dd>{{empleado.apellido}}</dd>
+        <dt>Edad:</dt>
+        <dd>{{empleado.edad}}</dd>
+        <dt>Fecha de nacimiento:</dt>
+        <dd>{{empleado.fecha_nacimiento}}</dd>
+        <dt>Telefono:</dt>
+        <dd>{{empleado.telefono}}</dd>
+        <dt>Direccion:</dt>
+        <dd>{{empleado.direccion}}</dd>
+        <dt>Cargo:</dt>
+        <dd>{{empleado.cargo}}</dd>
+        <dt>Salario:</dt>
+        <dd>{{empleado.salario}}</dd>
+        <dt>Subsidio de transporte:</dt>
+        <dd>{{empleado.sub_transporte}}</dd>
+        <dt>Fecha de ingreso:</dt>
+        <dd>{{empleado.fecha_ingreso}}</dd>
+        <dt>Fecha de retiro:</dt>
+        <dd>{{empleado.fecha_retiro}}</dd>
+        <dt>Estado:</dt>
+        <dd>{{empleado.estado}}</dd>
+    </dl>
+</div>
+
+
+<hr>
+<div class="table-responsive" collapse="!ban_add_em || !ban_edit_em">
+    <table class="table table-bordered" >
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Numero Identificacion</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Telefono</th>
+                <th>Direccion</th>
+                <th>Cargo</th>
+                <th>Salario</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="e in dataempleado.data">
+                <td>{{e.id}}</td>
+                <td>{{e.num_identificacion}}</td>
+                <td>{{e.nombre}}</td>
+                <td>{{e.apellido}}</td>
+                <td>{{e.telefono}}</td>
+                <td>{{e.direccion}}</td>
+                <td>{{e.cargo}}</td>
+                <td>{{e.salario}}</td>
+                <td>{{e.estado}}</td>
+                <td class="td-delete"><button type="submit" class="glyphicon glyphicon-check" ng-click="verEmpleado(e)"></button></td>
+                <td class="td-delete"><button type="submit" class="glyphicon glyphicon-remove" data-toggle="modal" data-target="#eliminar-em" ng-click="eliminarEmpleado(e)"></button></td>
+                <td class="td-delete"><button type="submit" class="glyphicon glyphicon-pencil" ng-click="editarEmpleado(e)"></button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>    
+<nav>
+    <ul class="pager">
+        <li class="previous" ng-class="{'disabled' : page_em == 1}"><a href="" ng-click="previous_em()"><span aria-hidden="true">&larr;</span> Atras</a></li>
+        <li class="next" ng-class="{'disabled' : page_em == dataempleado.pag_page_count}"><a href="" ng-click="next_em()">Siguiente <span aria-hidden="true">&rarr;</span></a></li>
+    </ul>
+</nav>
+<div class="modal fade bs-example-modal-sm" id="eliminar-em" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Eliminar empleado {{del_em.num_identificacion}}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <p> <h4>¿Esta seguro que quiere eliminar este empleado?</h4></p>
+                    <p>Se  borraran todos los registro asociados a este</p>
+                    <p>Numero de identificacion: {{del_em.num_identificacion}}</p>
+                    <p>Nombre: {{del_em.nombre}} {{del_em.apellido}}</p>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="deleteEmpleado(del_em.id)">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,93 @@
+
+<form class="form-inline" >
+    <div class="form-group">
+        <select class="form-control" ng-model="vale.empleado_id">
+            <option ng-repeat="e in list_empleados" value="{{e.id}}">{{e.nombre}} {{e.apellido}}</option>
+        </select>
+        <input type="text" class="form-control" ng-model="vale.concepto" placeholder="Concepto">
+        <input type="number" class="form-control" ng-model="vale.valor" placeholder="Valor">
+        <button type="submit" class="btn btn-primary" ng-if="!ban_editar_vales" ng-click="guardarVale(vale)">Guardar</button>
+        <button type="submit" class="btn btn-success" ng-if="ban_editar_vales" ng-click="updateVale(vale)">Actualizar</button>
+        <button type="submit" class="btn btn-primary" ng-if="ban_editar_vales" ng-click="cancelarVale()">Cancelar</button>
+        <span id="alert-vale" class="{{alert_vale.class}}" ng-show='alert_vale.show'>{{alert_vale.mensaje}}</span>
+    </div>
+</form>
+
+<hr>
+<form class="form-inline">
+    <div class="form-group">
+        <p class="input-group">
+            <input type="text" class="form-control" ng-change="searchVales()" datepicker-popup="{{format}}" ng-model="b.fecha_start" is-open="opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions"  ng-required="true" close-text="Close" />
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-focus="opened = true" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+        </p>
+        <p class="input-group">
+            <input type="text" class="form-control" ng-change="searchVales()" datepicker-popup="{{format}}" ng-model="b.fecha_end" is-open="opened2" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions"  ng-required="true" close-text="Close" />
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-focus="opened2 = true"  ng-click="open2($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+        </p>
+
+        <select class="form-control" ng-model="b.id" ng-change="searchVales()">
+            <option ng-repeat="e in list_empleados" value="{{e.id}}">{{e.nombre}} {{e.apellido}}</option>
+        </select>
+        <button type="button" class="btn btn-default btn-sm " ng-click="reset()">Reset</button>
+        <button type="button" class="btn btn-default btn-sm " ng-click="imprimir()">Imprimir</button>
+    </div>
+</form>
+<label class="col-sm-2 control-label">Total : {{total_vales| currency:undefined:0}}</label>
+<div class="table-responsive" id="imprimeme">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Empleado</th>
+                <th>Concepto</th>
+                <th>Valor</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="v in datavale.data">
+                <td>{{v.fecha| date:'EEE, MMM d, y'}}</td>
+                <td>{{asignarEmpleado(v.empleado_id)}}</td>
+                <td>{{v.concepto}}</td>
+                <td>{{v.valor}}</td>
+                <td class="td-delete"><button type="submit" class="glyphicon glyphicon-remove" data-toggle="modal" data-target="#eliminar-vale" ng-click="eliminarVale(v)"></button></td>
+                <td class="td-delete"><button type="submit" class="glyphicon glyphicon-pencil" ng-click="editarVale(v)"></button></td>
+
+            </tr>
+        </tbody>
+    </table>
+</div>
+<h6>Elementos: {{datavale.pag_total_count}}</h6>
+<h6>Pagina: {{datavale.pag_page_count}}</h6>
+<nav>
+    <ul class="pager">
+        <li class="previous" ng-class="{'disabled' : page_vale == 1}"><a href="" ng-click="previous_vale()"><span aria-hidden="true">&larr;</span> Atras</a></li>
+        <li class="next" ng-class="{'disabled' : page_vale == datavale.pag_page_count}"><a href="" ng-click="next_vale()">Siguiente <span aria-hidden="true">&rarr;</span></a></li>
+    </ul>
+</nav>
+
+<div class="modal fade bs-example-modal-sm" id="eliminar-vale" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Eliminar Vale</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <p> <h4>¿Esta seguro que quiere eliminar este vale?</h4></p>
+                    <p>Empleado: {{asignarEmpleado(del_vale.empleado_id)}}</p>
+                    <p>Valor: {{del_vale.valor}}</p>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="deleteVale(del_vale.id)">Eliminar</button>
+            </div>
+        </div>
+    </div>

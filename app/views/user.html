@@ -1,0 +1,86 @@
+<div class="panel panel-default">
+    <div class="panel-heading">Usuarios</div>
+    <div class="panel-body">
+
+        <form class="form-inline " ng-if="!ban_editar">
+            <div class="form-group">
+                <input class="form-control col-sm-2" type="text" ng-model="user.username" 
+                       size="30" placeholder="Username">
+                <input class="form-control col-md-5" type="text" ng-model="user.password" size="30" placeholder="Password">
+                <input class="form-control col-md-5" type="text" ng-model="user.email" size="30" placeholder="Email">
+                <select class="form-control" ng-model="user.role">
+                    <option>10</option>
+                    <option>20</option>
+                    <option>30</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary" ng-click="addUser(user)">Agregar</button>
+        </form>
+        <div class="well" ng-if="ban_editar">
+            <h4>Editar Usuario: {{user_edi.username}}</h4>
+            <form class="form-inline">
+                <div class="form-group">
+                    <input class="form-control col-sm-2" type="text" ng-model="user_edi.username" 
+                           size="30" placeholder="Username">
+                    <input class="form-control col-md-5" type="text" ng-model="user_edi.password" size="30" placeholder="Password">
+                    <input class="form-control col-md-5" type="text" ng-model="user_edi.email" size="30" placeholder="Email">
+                    <select class="form-control" ng-model="user_edi.role">
+                        <option>10</option>
+                        <option>20</option>
+                        <option>30</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-success" ng-click="updateUser(user_edi)">Actualizar</button>
+                <button type="submit" class="btn btn-primary" ng-click="cancelarUpdate()">Cancelar</button>
+            </form>
+        </div>
+
+        <hr>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Rol</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="p in usuarios">
+                        <td>{{p.id}}</td>
+                        <td>{{p.username}}</td>
+                        <td>{{p.email}}</td>
+                        <td>{{p.role}}</td>
+                        <td class="td-delete"><button type="submit" class="glyphicon glyphicon-remove"  data-toggle="modal" data-target="#eliminar-user"  ng-click="eliminarUsuario(p)"></button></td>
+                        <td class="td-delete"><button type="submit" class="glyphicon glyphicon-pencil" ng-click="editarUsuario(p)"></button></td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-sm" id="eliminar-user" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Eliminar usuario {{del_user.username}}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <p> <h4>¿Esta seguro que quiere eliminar este usuario?</h4></p>
+
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="deleteUser(del_user.id)">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+
+<tabset justified="true"> 
+    <tab heading="Vales">
+        <div class="panel panel-default"> 
+            <div class="panel-body">
+                <div ng-include="'views/templates/empleados/tab_vales.html'"></div>
+            </div>
+        </div>    
+    </tab>
+    <tab heading="Empleados"> 
+        <div class="panel panel-default"> 
+            <div class="panel-body">
+                 <div ng-include="'views/templates/empleados/tab_empleados.html'"></div>
+            </div>
+        </div>
+    </tab>
+   
+    <tab heading="Nomina" ng-show="access([30])">
+         <div class="panel panel-default"> 
+            <div class="panel-body">
+                <div ng-include="'views/templates/empleados/tab_nomina.html'"></div>
+            </div>
+        </div>  
+    </tab>
+</tabset>
+
+
+
+
+
+
+
+
+
+

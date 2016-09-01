@@ -1,0 +1,119 @@
+<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+<form class="form-horizontal" name="form_empleado" novalidate >
+    <div class="form-group " ng-class="{'has-error':form_empleado.num_identificacion.$invalid }">
+        <label class="col-sm-2 control-label">Numero de Identificacion</label>  
+        <div class="col-sm-8">
+            <input class="form-control" type="text" name="num_identificacion" ng-model="em.num_identificacion" size="30" placeholder="Ingrese nit"  required>
+            <span id="alert" class="{{validate.nit.class}}" ng-show='validate.nit.show'>{{validate.nit.mensaje}}</span>
+        </div>
+    </div>
+    <div class="form-group" ng-class="{'has-error':form_empleado.nombre.$invalid }">
+        <label class="col-sm-2 control-label">Nombre</label> 
+        <div class="col-sm-8">
+            <input class="form-control col-md-5" type="text" name="nombre" ng-model="em.nombre" size="40" placeholder="Nombre" required>
+            <span id="alert" class="{{validate.nombre.class}}" ng-show='validate.nombre.show'>{{validate.nombre.mensaje}}</span>
+        </div>
+    </div>
+    <div class="form-group" ng-class="{'has-error':form_empleado.apellido.$invalid }">
+        <label class="col-sm-2 control-label">Apellido</label>                       
+        <div class="col-sm-8">
+            <input class="form-control col-md-5" type="text" name="apellido" ng-model="em.apellido" size="40" placeholder="Apellido" required>
+            <span id="alert" class="{{validate.apellido.class}}" ng-show='validate.apellido.show'>{{validate.apellido.mensaje}}</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Edad</label>                       
+        <div class="col-sm-8">
+            <input class="form-control col-md-5" type="number" ng-model="em.edad" size="40" placeholder="Edad" >
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Fecha de Nacimiento</label>                       
+        <div class="col-sm-8">
+            <input type="text" class="form-control"  ng-model="em.fecha_nacimiento" id="fecha_nacimiento" placeholder="Fecha de nacimiento"/>
+        </div>
+    </div>
+    <div class="form-group" ng-class="{'has-error':form_empleado.direccion.$invalid }">
+        <label class="col-sm-2 control-label">Direccion</label>                       
+        <div class="col-sm-8">
+            <input class="form-control col-md-5" type="text" name="direccion" ng-model="em.direccion" size="60" placeholder="Direccion" required>
+            <span id="alert" class="{{validate.direccion.class}}" ng-show='validate.direccion.show'>{{validate.direccion.mensaje}}</span>
+        </div>
+    </div>
+    <div class="form-group" ng-class="{'has-error':form_empleado.telefono.$invalid }">
+        <label class="col-sm-2 control-label">Telefono</label>    
+        <div class="col-sm-8">
+            <input class="form-control col-md-5" type="text" name="telefono" ng-model="em.telefono" size="40" placeholder="Telefono" required>
+            <span id="alert" class="{{validate.telefono.class}}" ng-show='validate.telefono.show'>{{validate.telefono.mensaje}}</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Cargo</label>                       
+        <div class="col-sm-8">
+            <input class="form-control col-md-5" type="text" ng-model="em.cargo" size="40" placeholder="Cargo" >
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Salario</label>                       
+        <div class="col-sm-8">
+            <input class="form-control col-md-5" type="number" ng-model="em.salario" size="40" placeholder="Salario" required>
+            <span id="alert" class="{{validate.salario.class}}" ng-show='validate.salario.show'>{{validate.salario.mensaje}}</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Subsidio de transporte</label>                       
+        <div class="col-sm-2">
+            <input class="form-control col-md-5" type="checkbox" ng-model="em.sub_transporte"> Check me out
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Fecha de ingreso</label>                       
+        <div class="col-sm-8">
+            <input class="form-control col-md-5" type="text" ng-model="em.fecha_ingreso" id="fecha_ingreso" size="40" placeholder="Fecha de Ingreso" >
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Fecha de retiro</label>                       
+        <div class="col-sm-8">
+            <input class="form-control col-md-5" type="text" ng-model="em.fecha_retiro" id="fecha_retiro" size="40" placeholder="Fecha de retiro" >
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Estado</label>                       
+        <div class="col-sm-8">
+            <select class="form-control" ng-model="em.estado" required>
+                <option value="activo">Activo</option>
+                <option value="retirado">Retirado</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="button" class="btn btn-primary"  ng-click="validateEmpleado(em)">Agregar</button>
+        </div>
+    </div>
+</form>
+
+<!--script>
+    $(function() {
+        $("#fecha_nacimiento").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "1950:2016"
+        });
+    });
+    $(function() {
+        $("#fecha_ingreso").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "1950:2020"
+        });
+    });
+    $(function() {
+        $("#fecha_retiro").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "1950:2020"
+        });
+    });
+</script-->

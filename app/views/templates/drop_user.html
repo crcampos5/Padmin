@@ -1,0 +1,21 @@
+<button id="menu-toggle" ng-click="openbar()" class="sidebar-toggle btn btn-primary" role="button" ng-show="access([30, 20, 10])">
+    <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+ </button> 
+<div class="dropdown logout-menu" ng-show="access([30, 20, 10])">
+    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+        <span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{username}} 
+        <span class="caret"></span>
+
+    </button>
+    <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="#/">Perfil</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="#/">Configuracion</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="#/">Privacidad</a></li>
+        <li class="divider"></li>
+        <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="" ng-click="logout()">
+                <span class="glyphicon glyphicon-off" aria-hidden="true"></span> Salir
+            </a>
+        </li>
+    </ul>
+</div>

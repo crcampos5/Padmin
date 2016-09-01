@@ -1,0 +1,254 @@
+<div ng-controller="NominaCtrl" ng-show="access([30])">
+     <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+    <div class="row padin">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <label class="col-sm-2 control-label">Mes:</label>
+                <div class="col-sm-3">
+                    <select class="form-control" ng-model="mes" ng-change="updateShowNomina()">
+                        <option>Enero</option>
+                        <option>Febrero</option>
+                        <option>Marzo</option>
+                        <option>Abril</option>
+                        <option>Mayo</option>
+                        <option>Junio</option>
+                        <option>Julio</option>
+                        <option>Agosto</option>
+                        <option>Septiembre</option>
+                        <option>Octubre</option>
+                        <option>Noviembre</option>
+                        <option>Diciembre</option>
+                    </select>
+                </div>
+                <label class="col-sm-2 control-label">Quincena:</label>
+                <div class="col-sm-3">
+                    <select class="form-control" ng-model="quincena" ng-change="updateShowNomina()">
+                        <option>1</option>
+                        <option>2</option>
+                    </select>
+                </div>
+                <label class="col-sm-2 control-label">Total Pagado : {{resumen.total_pagado| currency:undefined:0}}</label>
+            </div>
+
+        </div>
+        <div class="panel ">
+            <button type="button" class="btn btn-default btn-sm" ng-click="ban_cal = !ban_cal">
+                <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span> Calculadora Salarial
+            </button>
+              <span id="alert-nomina" class="{{alert_nomina.class}}" ng-show='alert_nomina.show'>{{alert_nomina.mensaje}}</span>
+        </div>
+        <div class="col-md-3" collapse="ban_cal">
+            <accordion close-others="oneAtATime">
+
+                <accordion-group is-open="status.open2">
+                    <accordion-heading>
+                        Empleados
+                        <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                    </accordion-heading>
+                    <div class="list-group">
+                        <div class="list-group-item item-em" ng-repeat="em in list_empleados" ng-click="selecteEmpleado(em)"> 
+                            {{em.nombre}} {{em.apellido}} 
+                        </div>
+                    </div>
+                </accordion-group>
+                <accordion-group is-open="status.open3">
+                    <accordion-heading>
+                        Datos Basicos
+                        <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                    </accordion-heading>
+                    <dl class="dl-horizontal">
+                        <dt>Año:</dt>
+                        <dd>{{datos_basicos.anio}}</dd>
+                        <dt>Salario Minimo:</dt>
+                        <dd>{{datos_basicos.salario_minimo}}</dd>
+                        <dt>Subsidio de transporte:</dt>
+                        <dd>{{datos_basicos.subsidio_transporte}}</dd>
+                        <hr>
+                        <dt>Salud Empleado:</dt>
+                        <dd>{{datos_basicos.salud.empleado}}</dd>
+                        <dt>Salud Empresa:</dt>
+                        <dd>{{datos_basicos.salud.empresa}}</dd>
+                        <hr>
+                        <dt>Pension Empleado:</dt>
+                        <dd>{{datos_basicos.pension.empleado}}</dd>
+                        <dt>Pension Empresa:</dt>
+                        <dd>{{datos_basicos.pension.empresa}}</dd>
+                        <hr>
+                        <dt>ARP:</dt>
+                        <dd>{{datos_basicos.arp}}</dd>
+                        <dt>Prima:</dt>
+                        <dd>{{datos_basicos.prima}}</dd>
+                        <dt>Cesantias:</dt>
+                        <dd>{{datos_basicos.cesantias}}</dd>
+                        <dt>Int/cesantias:</dt>
+                        <dd>{{datos_basicos.int_cesantias}}</dd>
+                        <dt>Vacaciones:</dt>
+                        <dd>{{datos_basicos.vacaciones}}</dd>
+                    </dl>
+                </accordion-group>
+            </accordion>
+
+        </div>
+
+        <div class="panel panel-default col-md-9" collapse="ban_cal">
+            <div class="panel-body padingcero">
+                <div class="row">
+                    <label class="col-sm-2 control-label">Calcular sobre:</label>
+                    <div class="col-sm-3">
+                        <select class="form-control" ng-model="config.calcular_sobre" ng-change="updateVales()">
+                            <option>Minimo</option>
+                            <option>Sueldo</option>
+                        </select>
+                    </div>
+                    <label class="col-sm-2 control-label">Dias liquidados:</label>
+                    <div class="col-sm-3">
+                        <input type="number" class="form-control" ng-model="config.dias_liquidados" ng-change="updateVales()">
+                    </div>
+                </div>
+
+
+                <div class="col-md-4 ">
+                    <label>Informacion</label>
+                    <dl class="dl-horizontal margin-bootoncero">
+                        <dt>Nombre:</dt>
+                        <dd>{{empleado.em.nombre}} {{empleado.em.apellido}}</dd>
+                        <dt>Sueldo:</dt>
+                        <dd>{{empleado.em.salario}}</dd>
+                        <dt>Dias liquidados:</dt>
+                        <dd>{{config.dias_liquidados}}</dd>
+                    </dl>
+                </div>
+                <div class="col-md-4 ">
+                    <label>Devengado</label>
+                    <dl class="dl-horizontal">
+                        <dt>Basico:</dt>
+                        <dd>{{empleado.basico}}</dd>
+                        <dt> 
+                        <input type="checkbox" ng-model="b_subtrans" ng-change="updateVales()">
+                        Sub Transporte:
+                        </dt>
+                        <dd>{{empleado.sub_transporte}}</dd>
+                        <dt>Total horas extras:</dt>
+                        <dd>{{empleado.extras}}</dd>
+                        <dt>Total devengado:</dt>
+                        <dd>{{empleado.total_devengado}}</dd>
+                    </dl>
+                </div>
+                <div class="col-md-4 ">
+                    <label>Pres. sociales</label>
+                    <dl class="dl-horizontal">
+                        <dt> <input type="checkbox" ng-model="b_salud" ng-change="updateVales()"> Salud:</dt>
+                        <dd>{{empleado.salud}}</dd>
+                        <dt> <input type="checkbox" ng-model="b_pension" ng-change="updateVales()"> Pension:</dt>
+                        <dd>{{empleado.pension}}</dd>
+                        <dt> <input type="checkbox">Caja/cion:</dt>
+                        <dd></dd>
+                        <dt> <input type="checkbox">Otros:</dt>
+                        <dd></dd>
+                    </dl>
+                </div>
+                <div class="col-md-4 ">
+                    <label>Deducciones</label>
+                    <dl class="dl-horizontal">
+                        <dt>Total vales de 
+                        <div class="">
+                            <p class="input-group">
+                                <input type="text" class="form-control" ng-change="updateVales()" datepicker-popup="{{format}}" ng-model="fecha_inicio" is-open="opened1" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions"  ng-required="true" close-text="Close" />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="open1($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                </span>
+                            </p>
+                        </div> 
+                        a :
+                        <div class="">
+                            <p class="input-group">
+                                <input type="text" class="form-control" ng-change="updateVales()" datepicker-popup="{{format}}" 
+                                       ng-model="fecha_fin" is-open="opened" min-date="minDate" max-date="maxDate" 
+                                       datepicker-options="dateOptions"  ng-required="true" close-text="Close" />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                </span>
+                            </p>
+                        </div> 
+                        </dt>
+                        <dd>{{empleado.total_vales}}</dd>
+                        <dt>Otras deducciones:</dt>
+                        <dd>
+                            <div ng-if="!ban_edi_deduc">
+                                {{empleado.otras_deducciones}}
+                                <button type="submit" class="btn btn-default btn-xs glyphicon glyphicon-pencil" ng-click="editarDeduc()"></button>
+
+                            </div>
+
+
+                            <form class="form-inline " ng-if="ban_edi_deduc">
+                                <div class="form-group">
+                                    <input class="form-control col-sm-2" type="number" ng-model="empleado.otras_deducciones" 
+                                           size="30" placeholder="Otras deducciones">                                    
+                                </div>
+                                <button type="submit" class="btn btn-success" ng-click="updateDeduc()">Actualizar</button>
+                                <button type="submit" class="btn btn-primary" ng-click="editarDeduc()">Cancelar</button>
+                            </form>
+                        </dd>
+                        <dt>Total deducciones:</dt>
+                        <dd>{{empleado.total_deducciones}}</dd>
+                    </dl> 
+                </div>
+                <div class="col-md-4 ">
+                    <h3>Neto Pagado: {{empleado.neto_pagado| currency:undefined:0}}</h3>
+                    <button type="submit" class="btn btn-primary" ng-click="agregarNomina()">Agregar a la nomina</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="panel panel-default ">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Empleado</th>
+                        <th>Sueldo</th>
+                        <th>Dias Liquidados</th>
+                        <th>Basico</th>
+                        <th>Sub Trans</th>
+                        <th>Total Devengado</th>
+                        <th>Salud</th>
+                        <th>Pension</th>
+                        <th>Vales</th>
+                        <th>Total Deducciones</th>
+                        <th>Neto Pagado</th>
+                       
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="p in list_nomina">
+                        <td>{{asignarEmpleado(p.empleado_id)}}</td>
+                        <td>{{asignarSalario(p.empleado_id)}}</td>
+                        <td>{{p.dias_liquidados}}</td>
+                        <td>{{p.basico}}</td>
+                        <td>{{p.sub_transporte}}</td>
+                        <td>{{p.total_devengado}}</td>
+                        <td>{{p.salud}}</td>
+                        <td>{{p.pension}}</td>
+                        <td>{{p.total_vales}}</td>
+                        <td>{{p.total_deducciones}}</td>
+                        <td>{{p.neto_pagado}}</td>
+                        <td class="td-delete"><button type="submit" class="glyphicon glyphicon-remove" ng-click="deleteNomina(p.id)"></button></td>
+                        <td class="td-delete" ng-if="p.fecha_pago == null"><button type="submit" class="btn btn-success btn-xs" ng-disabled="{{p.fecha_pago != null}}" ng-click="pagarEmpleado(p)">Pagar</button></td>
+                        <td class="td-delete" ng-if="p.fecha_pago != null"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div> 
+    <nav>
+        <ul class="pager">
+            <li class="previous"><a href="" ng-click="previous()"><span aria-hidden="true">&larr;</span> Atras</a></li>
+            <li class="next"><a href="" ng-click="next()">Siguiente <span aria-hidden="true">&rarr;</span></a></li>
+        </ul>
+    </nav>
+
+</div>
