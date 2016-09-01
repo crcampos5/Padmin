@@ -1,0 +1,10 @@
+RewriteEngine on
+# If a directory or a file exists, use it directly
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+# Otherwise forward it to index.php
+RewriteRule . index.php
+
+# Pass Authorization headers to an environment variable 
+RewriteRule .* - [E=HTTP_Authorization:%{HTTP:Authorization}] 
+#- See more at: http://jhtechservices.com/2014/06/passing-authorization-header-to-php-program-when-fastcgi-php-being-used/#sthash.nT4bILDi.dpuf

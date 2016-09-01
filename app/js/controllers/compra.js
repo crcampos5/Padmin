@@ -46,6 +46,7 @@ app.controller('CompraCtrl', function($scope, ajax_servi, proveedor, compra) {
         for (var i in $scope.proveedores) {
             if ($scope.proveedores[i].id == id)
                 return $scope.proveedores[i].nombre
+            
         }
     }
 
